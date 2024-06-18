@@ -1,0 +1,39 @@
+{
+    "allNotes": [
+      {
+        "date": "2024-06-17",
+        "time": { "hr": 10, "min": 30 },
+        "emoji": "📝",
+        "title": "Meeting Notes",
+        "body": "Discuss project milestones and deliverables.",
+        "category": "Work"
+      },
+      {
+        "date": "2024-06-18",
+        "time": { "hr": 14, "min": 0 },
+        "emoji": "🎉",
+        "title": "Birthday Party",
+        "body": "Celebrate John's birthday at the park.",
+        "category": "Personal"
+      }
+    ],
+    "myNotes": [
+      {
+        "date": "2024-06-19",
+        "time": { "hr": 9, "min": 15 },
+        "emoji": "🛠️",
+        "title": "Fix Bugs",
+        "body": "Resolve issues in the new feature branch.",
+        "category": "Work"
+      },
+      {
+        "date": "2024-06-20",
+        "time": { "hr": 18, "min": 45 },
+        "emoji": "📚",
+        "title": "Read Book",
+        "body": "Read the new novel by my favorite author.",
+        "category": "Leisure"
+      }
+    ]
+  }
+  

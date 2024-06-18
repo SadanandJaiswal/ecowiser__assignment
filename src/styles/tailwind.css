@@ -1,0 +1,53 @@
+/* tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Pagination specific styling */
+.pagination {
+  display: flex;
+  margin-top: 1rem;
+  /* border: 2px solid red; */
+}
+
+.pagination a {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 0.5rem 0.75rem;
+  margin-right: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #e9e9e9;
+}
+
+.pagination .active a {
+  background-color: #3490dc;
+  color: white;
+  border-color: #3490dc;
+}
+
+.pagination .pagination-previous,
+.pagination .pagination-next {
+  display: flex;
+  border: 2px solid red;
+  align-items: center;
+}
+
+.pagination .pagination-previous .page-link,
+.pagination .pagination-next .page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-item{
+    /* border: 2px solid blue; */
+    height: 40px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+}
