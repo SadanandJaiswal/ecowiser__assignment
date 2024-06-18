@@ -1,8 +1,8 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import { db } from './firebase';
+import React, { createContext, useState, useEffect, useContext } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "./firebase";
 
 const NoteContext = createContext();
 
@@ -12,7 +12,9 @@ export const NoteProvider = ({ children }) => {
   const [myNotes, setMyNotes] = useState([]);
   const [allNotes, setAllNotes] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [selectNote, setSelectNote] = useState('allNotes'); // 'myNotes' or 'allNotes'
+  const [selectNote, setSelectNote] = useState("allNotes"); // 'myNotes' or 'allNotes'
+
+  const [isEditable, setIsEditable] = useState(false);
 
   useEffect(() => {
     fetchAllNotes();
@@ -20,49 +22,51 @@ export const NoteProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log('myNotes:', myNotes);
-    if (selectNote === 'myNotes') {
-      setNotes(myNotes)
+    console.log("myNotes:", myNotes);
+    if (selectNote === "myNotes") {
+      setNotes(myNotes);
     }
   }, [myNotes]);
 
   useEffect(() => {
-    console.log('allNotes:', allNotes);
-    if (selectNote === 'allNotes') {
-      setNotes(allNotes)
+    console.log("allNotes:", allNotes);
+    if (selectNote === "allNotes") {
+      setNotes(allNotes);
     }
   }, [allNotes]);
 
   useEffect(() => {
-    console.log('selectNote:', selectNote);
+    console.log("selectNote:", selectNote);
     fetchNotes();
   }, [selectNote]);
 
   const fetchMyNotes = () => {
     try {
-      const savedMyNotes = JSON.parse(localStorage.getItem('notes')) || [];
-      
-      const pinnedNotes = savedMyNotes.filter(note => note.pinned);
-      const unpinnedNotes = savedMyNotes.filter(note => !note.pinned);
-  
+      const savedMyNotes = JSON.parse(localStorage.getItem("notes")) || [];
+
+      const pinnedNotes = savedMyNotes.filter((note) => note.pinned);
+      const unpinnedNotes = savedMyNotes.filter((note) => !note.pinned);
+
       pinnedNotes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      unpinnedNotes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  
+      unpinnedNotes.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
       const sortedNotes = [...pinnedNotes, ...unpinnedNotes];
-  
+
       setMyNotes(sortedNotes);
     } catch (error) {
-      console.error('Error fetching my notes:', error);
-      toast.error('Error fetching my notes');
+      console.error("Error fetching my notes:", error);
+      toast.error("Error fetching my notes");
     }
   };
 
   const fetchAllNotes = async () => {
     try {
       const q = query(
-        collection(db, 'notes'),
-        orderBy('pinned', 'desc'), // Sort by pinned status: true first
-        orderBy('createdAt', 'desc') // Then sort by createdAt: latest first
+        collection(db, "notes"),
+        orderBy("pinned", "desc"), // Sort by pinned status: true first
+        orderBy("createdAt", "desc") // Then sort by createdAt: latest first
       );
       const querySnapshot = await getDocs(q);
       const notesArray = querySnapshot.docs.map((doc) => ({
@@ -72,13 +76,13 @@ export const NoteProvider = ({ children }) => {
       setAllNotes(notesArray);
       // toast.success('All Notes Fetched Successfully');
     } catch (error) {
-      console.error('Error fetching all notes:', error);
-      toast.error('Error fetching all notes');
+      console.error("Error fetching all notes:", error);
+      toast.error("Error fetching all notes");
     }
   };
 
   const fetchNotes = () => {
-    if (selectNote === 'myNotes') {
+    if (selectNote === "myNotes") {
       fetchMyNotes();
       // setNotes(myNotes)
     } else {
@@ -88,7 +92,19 @@ export const NoteProvider = ({ children }) => {
   };
 
   return (
-    <NoteContext.Provider value={{ notes, myNotes, allNotes, selectNote, setSelectNote, fetchNotes, fetchAllNotes }}>
+    <NoteContext.Provider
+      value={{
+        notes,
+        myNotes,
+        allNotes,
+        selectNote,
+        setSelectNote,
+        fetchNotes,
+        fetchAllNotes,
+        isEditable,
+        setIsEditable,
+      }}
+    >
       <ToastContainer />
       {children}
     </NoteContext.Provider>
