@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-console.log('env value is here ', process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID)
+// console.log('env value is here ', process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID)
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
